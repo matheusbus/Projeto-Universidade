@@ -4,6 +4,7 @@
  */
 package dao;
 
+import java.util.ArrayList;
 import java.util.List;
 import model.Curso;
 import repositorio.CursoRepositorio;
@@ -15,6 +16,12 @@ import repositorio.CursoRepositorio;
 public class CursoDAO implements CursoRepositorio{
 
     private static List<Curso> cursos;
+
+    public CursoDAO() {
+        if(cursos == null){
+            cursos = new ArrayList<>();
+        }
+    }
     
     @Override
     public boolean addCurso(Curso c) {
@@ -40,11 +47,5 @@ public class CursoDAO implements CursoRepositorio{
     public List<Curso> getCursos() {
         return cursos;
     }
-    
-    public int getMaxCodCurso(){
-        Curso curso = cursos.get(cursos.size());
-        return curso.getCodigo();
-    }
-    
-    
+        
 }

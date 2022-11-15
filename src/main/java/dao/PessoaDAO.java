@@ -83,4 +83,22 @@ public class PessoaDAO implements PessoaRepositorio{
         return null;
     }
     
+    @Override
+    public void imprimeAlunos(){
+        for(Pessoa p : pessoas){
+            if(p instanceof Aluno aluno){
+                System.out.println(aluno.toString() + "\n");
+            }
+        }
+    }
+  
+    @Override
+    public void imprimeProfessores(){
+        for(Pessoa p : pessoas){
+            if(p instanceof Professor prof){
+                System.out.println(prof.toString() + "\n");
+            }
+        }
+    }
+    
 }

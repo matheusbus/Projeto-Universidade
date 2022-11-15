@@ -22,5 +22,7 @@ public interface PessoaRepositorio {
     public Professor getProfessorByMatricula(String matricula);
     public Set<Aluno> getAlunos();
     public Set<Professor> getProfessores();
+    public void imprimeAlunos();
+    public void imprimeProfessores();
     
 }

@@ -68,9 +68,9 @@ public final class CadCursoView extends DefaultView {
     @Override
     public void initLayout() {
         this.setContentPane(pnlBackground);
-        this.setSize(600, 165);
+        this.setSize(600, 200);
         this.setLocationRelativeTo(null);
-        this.txtCodigo.setText(Integer.toString(Curso.getGeradorCodigo() +1));
+        this.txtCodigo.setText(Integer.toString(Curso.getGeradorCodigo()+1));
     }    
     
     /**
@@ -93,21 +93,24 @@ public final class CadCursoView extends DefaultView {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Cadastro de Cursos");
 
+        lblCodigo.setForeground(new java.awt.Color(255, 153, 51));
         lblCodigo.setText("Código");
 
+        txtCodigo.setEditable(false);
         txtCodigo.setForeground(new java.awt.Color(255, 153, 51));
 
+        lblNome.setForeground(new java.awt.Color(255, 153, 51));
         lblNome.setText("Nome");
 
         txtNome.setForeground(new java.awt.Color(255, 153, 51));
 
         btnSave.setBackground(new java.awt.Color(255, 153, 51));
         btnSave.setForeground(new java.awt.Color(0, 0, 0));
-        btnSave.setText("Save");
+        btnSave.setText("Cadastrar");
 
         btnCancel.setBackground(new java.awt.Color(190, 190, 190));
         btnCancel.setForeground(new java.awt.Color(0, 0, 0));
-        btnCancel.setText("Cancel");
+        btnCancel.setText("Cancelar");
 
         javax.swing.GroupLayout pnlBackgroundLayout = new javax.swing.GroupLayout(pnlBackground);
         pnlBackground.setLayout(pnlBackgroundLayout);

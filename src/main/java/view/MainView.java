@@ -4,6 +4,7 @@
  */
 package view;
 
+import com.formdev.flatlaf.intellijthemes.FlatHiberbeeDarkIJTheme;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -146,6 +147,20 @@ public final class MainView extends DefaultView {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        FlatHiberbeeDarkIJTheme.setup();
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(() -> {
+            new MainView().setVisible(true);
+        });
+    }    
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JFileChooser jFileChooser1;

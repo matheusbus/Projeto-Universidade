@@ -31,6 +31,10 @@ public class Turma {
         this.alunos = new ArrayList<>();
     }
 
+    public static int getGeradorCodigo() {
+        return geradorCodigo;
+    }
+
     public int getCodigo() {
         return codigo;
     }

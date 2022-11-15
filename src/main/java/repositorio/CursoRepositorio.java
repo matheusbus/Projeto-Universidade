@@ -17,7 +17,5 @@ public interface CursoRepositorio {
     public boolean removeCurso(int codigo);
     public Curso getCursoById(int codigo);
     public List<Curso> getCursos();
-    public int getMaxCodCurso();
-    
     
 }

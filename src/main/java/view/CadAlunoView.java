@@ -8,7 +8,6 @@ import dao.PessoaDAO;
 import excecao.PessoaException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Set;
 import model.Aluno;
 import repositorio.PessoaRepositorio;
 
@@ -19,15 +18,14 @@ import repositorio.PessoaRepositorio;
  */
 public final class CadAlunoView extends DefaultView {
 
-    private Set<Aluno> alunosBD;
+    private PessoaRepositorio repositorioDeAlunos;
     
     /**
      * Creates new form CadAlunoView
      */
     public CadAlunoView() {
         initComponents();
-        PessoaRepositorio repositorio = new PessoaDAO();
-        alunosBD = repositorio.getAlunos();
+        repositorioDeAlunos = new PessoaDAO();
         initButtons();
         initLayout();
     }
@@ -70,9 +68,9 @@ public final class CadAlunoView extends DefaultView {
         } catch (NumberFormatException ex){
             throw new PessoaException(ex.getMessage());
         }
-        alunosBD.add(novoAluno);
-        
-
+        repositorioDeAlunos.addPessoa(novoAluno);
+        showMessage("Êxito", "Aluno cadastrado com sucesso.");
+        this.dispose();      
     }
     
     @Override
@@ -106,26 +104,24 @@ public final class CadAlunoView extends DefaultView {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Cadastro de Alunos");
 
+        lblNome.setForeground(new java.awt.Color(255, 153, 51));
         lblNome.setText("Nome completo");
 
-        txtNome.setForeground(new java.awt.Color(255, 153, 51));
-
+        lblCpf.setForeground(new java.awt.Color(255, 153, 51));
         lblCpf.setText("CPF");
 
-        txtCpf.setForeground(new java.awt.Color(255, 153, 51));
-
+        jLabel1.setForeground(new java.awt.Color(255, 153, 51));
         jLabel1.setText("Matricula");
-
-        txtMatricula.setForeground(new java.awt.Color(255, 153, 51));
 
         btnSave.setBackground(new java.awt.Color(255, 153, 51));
         btnSave.setForeground(new java.awt.Color(0, 0, 0));
-        btnSave.setText("Save");
+        btnSave.setText("Cadastrar");
 
         btnCancel.setBackground(new java.awt.Color(190, 190, 190));
         btnCancel.setForeground(new java.awt.Color(0, 0, 0));
-        btnCancel.setText("Cancel");
+        btnCancel.setText("Cancelar");
 
+        jLabel2.setForeground(new java.awt.Color(255, 153, 51));
         jLabel2.setText("Idade");
 
         javax.swing.GroupLayout pnlBackgroundLayout = new javax.swing.GroupLayout(pnlBackground);

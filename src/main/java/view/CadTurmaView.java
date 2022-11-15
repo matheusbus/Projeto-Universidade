@@ -4,13 +4,21 @@
  */
 package view;
 
+import dao.CursoDAO;
 import dao.PessoaDAO;
-import excecao.PessoaException;
+import dao.TurmaDAO;
+import excecao.CursoException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
+import java.util.Map;
 import java.util.Set;
-import model.Aluno;
+import model.Curso;
+import model.Professor;
+import model.Turma;
+import repositorio.CursoRepositorio;
 import repositorio.PessoaRepositorio;
+import repositorio.TurmaRepositorio;
 
 
 /**
@@ -19,17 +27,21 @@ import repositorio.PessoaRepositorio;
  */
 public final class CadTurmaView extends DefaultView {
 
-    private Set<Aluno> alunosBD;
+    private Map<Integer, Turma> turmasBD;
+    private List<Curso> cursosBD;
+    private Set<Professor> professoresBD;
+    private TurmaRepositorio repositorioTurma;
+    private CursoRepositorio repositorioCurso;
+    private PessoaRepositorio repositorioProfessores;
     
     /**
      * Creates new form CadAlunoView
      */
     public CadTurmaView() {
         initComponents();
-        PessoaRepositorio repositorio = new PessoaDAO();
-        alunosBD = repositorio.getAlunos();
         initButtons();
         initLayout();
+        initFields();
     }
 
     @Override
@@ -38,8 +50,8 @@ public final class CadTurmaView extends DefaultView {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    saveAluno();
-                } catch (PessoaException ex) {
+                    saveTurma();
+                } catch (CursoException ex) {
                     showMessage("Erro", ex.getMessage());
                 }
             }
@@ -56,31 +68,40 @@ public final class CadTurmaView extends DefaultView {
         this.dispose();
     }
     
-    public void saveAluno() throws PessoaException{
-        Aluno novoAluno;
-        String nome = txtNome.getText();
-        String cpf = txtCpf.getText();
-        String matricula = txtMatricula.getText();
-        if(nome.isBlank()){
-            throw new PessoaException("O nome do aluno não pode ser nulo");
-        }
-        try {
-            int idade = Integer.parseInt(txtIdade.getText());
-            novoAluno = new Aluno(matricula, nome, cpf, idade);
-        } catch (NumberFormatException ex){
-            throw new PessoaException(ex.getMessage());
-        }
-        alunosBD.add(novoAluno);
-        
+    public void saveTurma() throws CursoException{
 
     }
     
     @Override
     public void initLayout() {
         this.setContentPane(pnlBackground);
-        this.setSize(600, 270);
+        this.setSize(600, 250);
         this.setLocationRelativeTo(null);
+        this.txtCodigo.setText(Integer.toString(Turma.getGeradorCodigo()+1));
     }    
+    
+    public void initFields(){
+        repositorioTurma = new TurmaDAO();
+        repositorioCurso = new CursoDAO();
+        repositorioProfessores = new PessoaDAO();
+        turmasBD = repositorioTurma.getTurmas();
+        cursosBD = repositorioCurso.getCursos();
+        professoresBD = repositorioProfessores.getProfessores();
+        createCursos();
+        createProfessores();
+    }
+    
+    public void createCursos(){
+        for(Curso c : cursosBD){
+            cbCurso.addItem(c);
+        }
+    }
+    
+    public void createProfessores(){
+        for(Professor p : professoresBD){
+            cbProfessor.addItem(p);
+        }
+    }
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -92,99 +113,118 @@ public final class CadTurmaView extends DefaultView {
     private void initComponents() {
 
         pnlBackground = new javax.swing.JPanel();
-        lblNome = new javax.swing.JLabel();
-        txtNome = new javax.swing.JTextField();
-        lblCpf = new javax.swing.JLabel();
-        txtCpf = new javax.swing.JTextField();
-        jLabel1 = new javax.swing.JLabel();
-        txtMatricula = new javax.swing.JTextField();
+        lblCodigo = new javax.swing.JLabel();
+        txtCodigo = new javax.swing.JTextField();
+        lblCurso = new javax.swing.JLabel();
+        cbCurso = new javax.swing.JComboBox<>();
+        lblProfessor = new javax.swing.JLabel();
+        cbProfessor = new javax.swing.JComboBox<>();
+        lblNomeDisciplina = new javax.swing.JLabel();
+        txtNomeDisciplina = new javax.swing.JTextField();
+        lblVaga = new javax.swing.JLabel();
+        cbVagas = new javax.swing.JComboBox<>();
         btnSave = new javax.swing.JButton();
         btnCancel = new javax.swing.JButton();
-        jLabel2 = new javax.swing.JLabel();
-        txtIdade = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Cadastro de Alunos");
+        setTitle("Cadastro de Cursos");
 
-        lblNome.setText("Nome completo");
+        lblCodigo.setForeground(new java.awt.Color(255, 153, 51));
+        lblCodigo.setText("Código");
 
-        txtNome.setForeground(new java.awt.Color(255, 153, 51));
+        txtCodigo.setEditable(false);
+        txtCodigo.setForeground(new java.awt.Color(255, 153, 51));
 
-        lblCpf.setText("CPF");
+        lblCurso.setForeground(new java.awt.Color(255, 153, 51));
+        lblCurso.setText("Curso");
 
-        txtCpf.setForeground(new java.awt.Color(255, 153, 51));
+        lblProfessor.setForeground(new java.awt.Color(255, 153, 51));
+        lblProfessor.setText("Professor");
 
-        jLabel1.setText("Matricula");
+        lblNomeDisciplina.setForeground(new java.awt.Color(255, 153, 51));
+        lblNomeDisciplina.setText("Nome da Disciplina");
 
-        txtMatricula.setForeground(new java.awt.Color(255, 153, 51));
+        lblVaga.setForeground(new java.awt.Color(255, 153, 51));
+        lblVaga.setText("Vagas");
+
+        cbVagas.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30" }));
 
         btnSave.setBackground(new java.awt.Color(255, 153, 51));
         btnSave.setForeground(new java.awt.Color(0, 0, 0));
-        btnSave.setText("Save");
+        btnSave.setText("Cadastrar");
 
         btnCancel.setBackground(new java.awt.Color(190, 190, 190));
         btnCancel.setForeground(new java.awt.Color(0, 0, 0));
-        btnCancel.setText("Cancel");
-
-        jLabel2.setText("Idade");
+        btnCancel.setText("Cancelar");
 
         javax.swing.GroupLayout pnlBackgroundLayout = new javax.swing.GroupLayout(pnlBackground);
         pnlBackground.setLayout(pnlBackgroundLayout);
         pnlBackgroundLayout.setHorizontalGroup(
             pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlBackgroundLayout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlBackgroundLayout.createSequentialGroup()
+                .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlBackgroundLayout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(pnlBackgroundLayout.createSequentialGroup()
+                                .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(cbCurso, javax.swing.GroupLayout.PREFERRED_SIZE, 318, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(cbVagas, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(pnlBackgroundLayout.createSequentialGroup()
+                                .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lblProfessor)
+                                    .addComponent(cbProfessor, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(pnlBackgroundLayout.createSequentialGroup()
+                                        .addComponent(lblCodigo)
+                                        .addGap(55, 55, 55)
+                                        .addComponent(lblCurso)))
+                                .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(pnlBackgroundLayout.createSequentialGroup()
+                                        .addGap(20, 20, 20)
+                                        .addComponent(lblNomeDisciplina)
+                                        .addGap(0, 0, Short.MAX_VALUE))
+                                    .addGroup(pnlBackgroundLayout.createSequentialGroup()
+                                        .addGap(18, 18, 18)
+                                        .addComponent(txtNomeDisciplina))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlBackgroundLayout.createSequentialGroup()
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(lblVaga)
+                                        .addGap(55, 55, 55))))))
                     .addGroup(pnlBackgroundLayout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(133, 133, 133)
-                        .addComponent(jLabel2))
-                    .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(pnlBackgroundLayout.createSequentialGroup()
-                            .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(18, 18, 18)
-                            .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlBackgroundLayout.createSequentialGroup()
-                            .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlBackgroundLayout.createSequentialGroup()
-                                    .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(lblNome)
-                                        .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 318, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGap(40, 40, 40))
-                                .addGroup(pnlBackgroundLayout.createSequentialGroup()
-                                    .addComponent(txtMatricula, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(28, 28, 28)
-                                    .addComponent(txtIdade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
-                            .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(lblCpf)
-                                .addComponent(txtCpf, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(20, Short.MAX_VALUE))
+                        .addContainerGap(280, Short.MAX_VALUE)
+                        .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(20, 20, 20))
         );
         pnlBackgroundLayout.setVerticalGroup(
             pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlBackgroundLayout.createSequentialGroup()
                 .addGap(30, 30, 30)
                 .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblNome)
-                    .addComponent(lblCpf))
+                    .addComponent(lblCodigo)
+                    .addComponent(lblCurso)
+                    .addComponent(lblVaga))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtCpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                    .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbCurso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbVagas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel2))
+                    .addComponent(lblProfessor)
+                    .addComponent(lblNomeDisciplina))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtMatricula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtIdade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                    .addComponent(cbProfessor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtNomeDisciplina, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
                 .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(21, Short.MAX_VALUE))
+                .addGap(28, 28, 28))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -205,15 +245,17 @@ public final class CadTurmaView extends DefaultView {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancel;
     private javax.swing.JButton btnSave;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel lblCpf;
-    private javax.swing.JLabel lblNome;
+    private javax.swing.JComboBox<Curso> cbCurso;
+    private javax.swing.JComboBox<Professor> cbProfessor;
+    private javax.swing.JComboBox<String> cbVagas;
+    private javax.swing.JLabel lblCodigo;
+    private javax.swing.JLabel lblCurso;
+    private javax.swing.JLabel lblNomeDisciplina;
+    private javax.swing.JLabel lblProfessor;
+    private javax.swing.JLabel lblVaga;
     private javax.swing.JPanel pnlBackground;
-    private javax.swing.JTextField txtCpf;
-    private javax.swing.JTextField txtIdade;
-    private javax.swing.JTextField txtMatricula;
-    private javax.swing.JTextField txtNome;
+    private javax.swing.JTextField txtCodigo;
+    private javax.swing.JTextField txtNomeDisciplina;
     // End of variables declaration//GEN-END:variables
 
 }

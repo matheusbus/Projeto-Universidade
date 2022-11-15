@@ -98,11 +98,15 @@
       <SubComponents>
         <Component class="javax.swing.JLabel" name="lblCodigo">
           <Properties>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="33" green="99" red="ff" type="rgb"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="C&#xf3;digo"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtCodigo">
           <Properties>
+            <Property name="editable" type="boolean" value="false"/>
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="33" green="99" red="ff" type="rgb"/>
             </Property>
@@ -110,6 +114,9 @@
         </Component>
         <Component class="javax.swing.JLabel" name="lblNome">
           <Properties>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="33" green="99" red="ff" type="rgb"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Nome"/>
           </Properties>
         </Component>
@@ -128,7 +135,7 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="0" green="0" red="0" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Save"/>
+            <Property name="text" type="java.lang.String" value="Cadastrar"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="btnCancel">
@@ -139,7 +146,7 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="0" green="0" red="0" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Cancel"/>
+            <Property name="text" type="java.lang.String" value="Cancelar"/>
           </Properties>
         </Component>
       </SubComponents>
