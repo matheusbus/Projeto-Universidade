@@ -12,32 +12,38 @@ import java.awt.event.ActionListener;
  *
  * @author Matheus
  */
-public final class InitForm extends javax.swing.JFrame {
+public final class InitialView extends DefaultView {
 
     /**
      * Creates new form InitForm
      */
-    public InitForm() {
+    public InitialView() {
         initComponents();
         initButtons();
         initLayout();
     }
 
+    @Override
     public void initLayout(){
         this.setContentPane(pnlBackground);
+        this.setLocationRelativeTo(null);
+        this.setSize(500, 500);
     }
     
+    
+    @Override
     public void initButtons(){
         btnEntrar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                showMessage("Êxito", "Logado com sucesso.");
                 openMainForm();
             }
         });
     }
     
     public void openMainForm(){
-        MainForm main = new MainForm();
+        MainView main = new MainView();
         main.setVisible(true);
         this.dispose();
     }
@@ -98,8 +104,9 @@ public final class InitForm extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
-                new InitForm().setVisible(true);
+                new InitialView().setVisible(true);
             }
         });
     }

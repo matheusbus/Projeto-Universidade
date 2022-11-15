@@ -11,19 +11,27 @@ package model;
 public class Aluno extends Pessoa{
     
     private final String matricula;
+    private final int idade;
 
-    public Aluno(String matricula, String nome, String cpf) {
+    public Aluno(String matricula, String nome, String cpf, int idade) {
         super(nome, cpf);
         this.matricula = matricula;
+        this.idade = idade;
     }
 
     public String getMatricula() {
         return matricula;
     }
 
+    public int getIdade() {
+        return idade;
+    }
+
     @Override
     public String toString() {
-        return super.toString() + " | Aluno{" + "matricula=" + matricula + '}';
+        return "Aluno{" + "matricula=" + matricula + ", idade=" + idade + '}';
     }
+    
+    
     
 }

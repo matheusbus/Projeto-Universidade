@@ -4,8 +4,6 @@
  */
 package model;
 
-import java.util.Date;
-
 /**
  *
  * @author Matheus
@@ -13,9 +11,9 @@ import java.util.Date;
 public class Professor extends Pessoa{
     
     private final String matricula;
-    private final Date dataAdmissao;
+    private final String dataAdmissao;
 
-    public Professor(String matricula, Date dataAdmissao, String nome, String cpf) {
+    public Professor(String matricula, String dataAdmissao, String nome, String cpf) {
         super(nome, cpf);
         this.matricula = matricula;
         this.dataAdmissao = dataAdmissao;
@@ -25,7 +23,7 @@ public class Professor extends Pessoa{
         return matricula;
     }
 
-    public Date getDataAdmissao() {
+    public String getDataAdmissao() {
         return dataAdmissao;
     }
 

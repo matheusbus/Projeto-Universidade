@@ -4,7 +4,7 @@
  */
 package repositorio;
 
-import java.util.List;
+import java.util.Map;
 import model.Turma;
 
 /**
@@ -13,9 +13,9 @@ import model.Turma;
  */
 public interface TurmaRepositorio {
     
-    public boolean addTurma(Turma t);
-    public boolean removeTurma(int codigo);
+    public void addTurma(Turma t);
+    public void removeTurma(int codigo);
     public Turma getTurmaById(int codigo);
-    public List<Turma> getTurmas();
+    public Map<Integer, Turma> getTurmas();
     
 }
