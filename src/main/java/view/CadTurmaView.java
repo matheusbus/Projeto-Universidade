@@ -17,14 +17,14 @@ import repositorio.PessoaRepositorio;
  *
  * @author Matheus
  */
-public final class CadAlunoView extends DefaultView {
+public final class CadTurmaView extends DefaultView {
 
     private Set<Aluno> alunosBD;
     
     /**
      * Creates new form CadAlunoView
      */
-    public CadAlunoView() {
+    public CadTurmaView() {
         initComponents();
         PessoaRepositorio repositorio = new PessoaDAO();
         alunosBD = repositorio.getAlunos();

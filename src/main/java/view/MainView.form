@@ -21,6 +21,16 @@
                 <Property name="text" type="java.lang.String" value="Alunos"/>
               </Properties>
             </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="miCadCurso">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Cursos"/>
+              </Properties>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="miCadTurma">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Turmas"/>
+              </Properties>
+            </MenuItem>
           </SubComponents>
         </Menu>
         <Menu class="javax.swing.JMenu" name="muConsulta">

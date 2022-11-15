@@ -37,6 +37,18 @@ public final class MainView extends DefaultView {
                 openCadAlunoView();
             }
         });
+        miCadCurso.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                openCadCursoView();
+            }
+        });
+        miCadTurma.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                openCadTurmaView();
+            }
+        });
     }
 
     @Override
@@ -56,6 +68,16 @@ public final class MainView extends DefaultView {
         cadAluno.setVisible(true);
     }
     
+    public void openCadCursoView(){
+        CadCursoView cadCurso = new CadCursoView();
+        cadCurso.setVisible(true);
+    }
+    
+    public void openCadTurmaView(){
+        CadTurmaView cadTurma = new CadTurmaView();
+        cadTurma.setVisible(true);
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -71,6 +93,8 @@ public final class MainView extends DefaultView {
         muCadastro = new javax.swing.JMenu();
         miCadProfessor = new javax.swing.JMenuItem();
         miCadAluno = new javax.swing.JMenuItem();
+        miCadCurso = new javax.swing.JMenuItem();
+        miCadTurma = new javax.swing.JMenuItem();
         muConsulta = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -94,6 +118,12 @@ public final class MainView extends DefaultView {
 
         miCadAluno.setText("Alunos");
         muCadastro.add(miCadAluno);
+
+        miCadCurso.setText("Cursos");
+        muCadastro.add(miCadCurso);
+
+        miCadTurma.setText("Turmas");
+        muCadastro.add(miCadTurma);
 
         mbPrincipal.add(muCadastro);
 
@@ -121,7 +151,9 @@ public final class MainView extends DefaultView {
     private javax.swing.JFileChooser jFileChooser1;
     private javax.swing.JMenuBar mbPrincipal;
     private javax.swing.JMenuItem miCadAluno;
+    private javax.swing.JMenuItem miCadCurso;
     private javax.swing.JMenuItem miCadProfessor;
+    private javax.swing.JMenuItem miCadTurma;
     private javax.swing.JMenu muCadastro;
     private javax.swing.JMenu muConsulta;
     private javax.swing.JPanel pnlBackground;

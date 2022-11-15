@@ -8,9 +8,9 @@ package excecao;
  *
  * @author Matheus
  */
-public class PessoaExcecao extends Exception{
+public class CursoException extends Exception{
 
-    public PessoaExcecao(String message) {
+    public CursoException(String message) {
         super(message);
     }
     

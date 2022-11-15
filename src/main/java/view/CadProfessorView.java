@@ -5,7 +5,7 @@
 package view;
 
 import dao.PessoaDAO;
-import excecao.PessoaExcecao;
+import excecao.PessoaException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Set;
@@ -39,7 +39,7 @@ public final class CadProfessorView extends DefaultView {
             public void actionPerformed(ActionEvent e) {
                 try {
                     saveProfessor();
-                } catch (PessoaExcecao ex) {
+                } catch (PessoaException ex) {
                     showMessage("Erro", ex.getMessage());
                 }
             }
@@ -56,14 +56,14 @@ public final class CadProfessorView extends DefaultView {
         this.dispose();
     }
     
-    public void saveProfessor() throws PessoaExcecao{
+    public void saveProfessor() throws PessoaException{
         Professor novoProfessor;
         String nome = txtNome.getText();
         String cpf = txtCpf.getText();
         String matricula = txtMatricula.getText();
         String dataAdmissao = txtDataAdmissao.getText();
         if(nome.isBlank()){
-            throw new PessoaExcecao("O nome do professor não pode ser nulo");
+            throw new PessoaException("O nome do professor não pode ser nulo");
         }
         novoProfessor = new Professor(matricula, dataAdmissao, nome, cpf);
         professoresBD.add(novoProfessor);
@@ -72,7 +72,8 @@ public final class CadProfessorView extends DefaultView {
     @Override
     public void initLayout() {
         this.setContentPane(pnlBackground);
-        this.setSize(600, 200);
+        this.setSize(600, 270);
+        this.setLocationRelativeTo(null);
     }    
     
     /**
@@ -97,7 +98,7 @@ public final class CadProfessorView extends DefaultView {
         txtDataAdmissao = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Cadastro de Alunos");
+        setTitle("Cadastro de Professores");
 
         lblNome.setText("Nome completo");
 

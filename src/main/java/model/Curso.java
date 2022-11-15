@@ -17,6 +17,11 @@ public class Curso {
     private String nome;
     private List<Turma> turmas;
 
+    public Curso(String nome) {
+        this.nome = nome;
+        this.codigo = geradorCodigo++;
+    }
+
     public static int getGeradorCodigo() {
         return geradorCodigo;
     }
