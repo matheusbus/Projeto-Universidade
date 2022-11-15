@@ -4,6 +4,7 @@
  */
 package model;
 
+import excecao.TurmaException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -52,5 +53,18 @@ public class Turma {
     
     public List<Aluno> getAlunos() {
         return alunos;
+    }
+    
+    public boolean addAluno(Aluno a) throws TurmaException{
+        if(vagas > 0){
+            vagas -= vagas - 1;
+            return this.alunos.add(a);
+        } else {
+            throw new TurmaException("Não há vagas para a turma.");
+        }
+    }
+    
+    public int getQuantidadeAlunosMatriculados(){
+        return this.alunos.size();
     }
 }
