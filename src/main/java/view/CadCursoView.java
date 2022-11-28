@@ -4,13 +4,10 @@
  */
 package view;
 
-import dao.CursoDAO;
 import excecao.CursoException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.List;
 import model.Curso;
-import repositorio.CursoRepositorio;
 
 
 /**
@@ -19,52 +16,23 @@ import repositorio.CursoRepositorio;
  */
 public final class CadCursoView extends DefaultView {
 
-    private List<Curso> cursosBD;
-    private CursoRepositorio repositorio;
-    
+   
     /**
      * Creates new form CadAlunoView
      */
     public CadCursoView() {
         initComponents();
-        repositorio = new CursoDAO();
-        cursosBD = repositorio.getCursos();
-        initButtons();
         initLayout();
     }
 
-    @Override
-    public void initButtons() {
-        btnSave.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                try {
-                    saveCurso();
-                } catch (CursoException ex) {
-                    showMessage("Erro", ex.getMessage());
-                }
-            }
-        });
-        btnCancel.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                cancelar();
-            }
-        });
-    }
-
-    public void cancelar(){
-        this.dispose();
+    public void adicionarAcaoAoBotaoSalvar(ActionListener acao){
+        btnSave.addActionListener(acao);
     }
     
-    public void saveCurso() throws CursoException{
-        String nome = txtNome.getText();
-        if(nome.isBlank()){
-            throw new CursoException("O nome do curso não pode ser nulo.");
-        }
-        cursosBD.add(new Curso(nome));
+    public void adicionarAcaoAoBotaoCancelar(ActionListener acao){
+        btnCancel.addActionListener(acao);
     }
-    
+   
     @Override
     public void initLayout() {
         this.setContentPane(pnlBackground);
@@ -72,6 +40,15 @@ public final class CadCursoView extends DefaultView {
         this.setLocationRelativeTo(null);
         this.txtCodigo.setText(Integer.toString(Curso.getGeradorCodigo()+1));
     }    
+    
+    public void exibirTela(){
+        this.setLocationRelativeTo(null);
+        this.setVisible(true);
+    }
+    
+    public String getNomeCurso(){
+        return this.txtNome.getText();
+    }
     
     /**
      * This method is called from within the constructor to initialize the form.

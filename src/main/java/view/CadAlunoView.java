@@ -8,69 +8,19 @@ import dao.PessoaDAO;
 import excecao.PessoaException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import model.Aluno;
-import repositorio.PessoaRepositorio;
-
 
 /**
  *
  * @author Matheus
  */
 public final class CadAlunoView extends DefaultView {
-
-    private PessoaRepositorio repositorioDeAlunos;
     
     /**
      * Creates new form CadAlunoView
      */
     public CadAlunoView() {
         initComponents();
-        repositorioDeAlunos = new PessoaDAO();
-        initButtons();
         initLayout();
-    }
-
-    @Override
-    public void initButtons() {
-        btnSave.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                try {
-                    saveAluno();
-                } catch (PessoaException ex) {
-                    showMessage("Erro", ex.getMessage());
-                }
-            }
-        });
-        btnCancel.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                cancelar();
-            }
-        });
-    }
-
-    public void cancelar(){
-        this.dispose();
-    }
-    
-    public void saveAluno() throws PessoaException{
-        Aluno novoAluno;
-        String nome = txtNome.getText();
-        String cpf = txtCpf.getText();
-        String matricula = txtMatricula.getText();
-        if(nome.isBlank()){
-            throw new PessoaException("O nome do aluno não pode ser nulo");
-        }
-        try {
-            int idade = Integer.parseInt(txtIdade.getText());
-            novoAluno = new Aluno(matricula, nome, cpf, idade);
-        } catch (NumberFormatException ex){
-            throw new PessoaException(ex.getMessage());
-        }
-        repositorioDeAlunos.addPessoa(novoAluno);
-        showMessage("Êxito", "Aluno cadastrado com sucesso.");
-        this.dispose();      
     }
     
     @Override
@@ -78,7 +28,43 @@ public final class CadAlunoView extends DefaultView {
         this.setContentPane(pnlBackground);
         this.setSize(600, 270);
         this.setLocationRelativeTo(null);
-    }    
+    }        
+    
+    public void adicionarAcaoAoBotaoCadastrarAluno(ActionListener acao){
+        btnSave.addActionListener(acao);
+    }
+    
+    public void adicionarAcaoAoBotaoCancelar(ActionListener acao){
+        btnCancel.addActionListener(acao);
+    }
+    
+    public String getNomeAluno(){
+        return txtNome.getText();
+    }
+    
+    public String getCpfAluno(){
+        return txtCpf.getText();
+    }
+    
+    public String getIdadeAluno(){
+        return txtIdade.getText();
+    }
+    
+    public String getMatriculaAluno(){
+        return txtMatricula.getText();
+    }
+ 
+    public void exibirTela(){
+        this.setLocationRelativeTo(null);
+        this.setVisible(true);
+    }
+    
+    public void limparTela(){
+        this.txtNome.setText(null);
+        this.txtCpf.setText(null);
+        this.txtIdade.setText(null);
+        this.txtMatricula.setText(null);
+    }
     
     /**
      * This method is called from within the constructor to initialize the form.

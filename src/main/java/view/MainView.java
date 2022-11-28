@@ -18,40 +18,27 @@ public final class MainView extends DefaultView {
      * Creates new form MainForm
      */
     public MainView() {
+        FlatHiberbeeDarkIJTheme.setup();
         initComponents();
         initLayout();
-        initButtons();
     }
     
-    @Override
-    public void initButtons() {
-        miCadProfessor.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                openCadProfessorView();
-            }
-        }
-        );
-        miCadAluno.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                openCadAlunoView();
-            }
-        });
-        miCadCurso.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                openCadCursoView();
-            }
-        });
-        miCadTurma.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                openCadTurmaView();
-            }
-        });
+    public void adicionarAcaoAoBotaoCadastrarProfessor(ActionListener acao){
+        miCadProfessor.addActionListener(acao);
     }
-
+    
+    public void adicionarAcaoAoBotaoCadastrarAluno(ActionListener acao){
+        miCadAluno.addActionListener(acao);
+    }
+    
+    public void adicionarAcaoAoBotaoCadastrarCurso(ActionListener acao){
+        miCadCurso.addActionListener(acao);
+    }
+    
+    public void adicionarAcaoAoBotaoCadastrarTurma(ActionListener acao){
+        miCadTurma.addActionListener(acao);
+    }
+    
     @Override
     public void initLayout() {
         this.setContentPane(pnlBackground);
@@ -59,24 +46,9 @@ public final class MainView extends DefaultView {
         this.setSize(800, 500);
     }    
     
-    public void openCadProfessorView(){
-        CadProfessorView cadProfessor = new CadProfessorView();
-        cadProfessor.setVisible(true);
-    }
-
-    public void openCadAlunoView(){
-        CadAlunoView cadAluno = new CadAlunoView();
-        cadAluno.setVisible(true);
-    }
-    
-    public void openCadCursoView(){
-        CadCursoView cadCurso = new CadCursoView();
-        cadCurso.setVisible(true);
-    }
-    
-    public void openCadTurmaView(){
-        CadTurmaView cadTurma = new CadTurmaView();
-        cadTurma.setVisible(true);
+    public void exibirTela(){
+        this.setLocationRelativeTo(null);
+        this.setVisible(true);
     }
     
     /**
@@ -146,20 +118,6 @@ public final class MainView extends DefaultView {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        FlatHiberbeeDarkIJTheme.setup();
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> {
-            new MainView().setVisible(true);
-        });
-    }    
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

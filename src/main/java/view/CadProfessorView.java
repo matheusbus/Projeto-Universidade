@@ -5,11 +5,11 @@
 package view;
 
 import dao.PessoaDAO;
-import excecao.PessoaException;
-import java.awt.event.ActionEvent;
+import java.awt.Component;
 import java.awt.event.ActionListener;
-import java.util.Set;
-import model.Professor;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.JTextField;
 import repositorio.PessoaRepositorio;
 
 
@@ -18,55 +18,55 @@ import repositorio.PessoaRepositorio;
  * @author Matheus
  */
 public final class CadProfessorView extends DefaultView {
-
-    private Set<Professor> professoresBD;
+    
+    private List<JTextField> campos;
     
     /**
      * Creates new form CadAlunoView
      */
     public CadProfessorView() {
         initComponents();
-        PessoaRepositorio repositorio = new PessoaDAO();
-        professoresBD = repositorio.getProfessores();
-        initButtons();
         initLayout();
+        campos = new ArrayList<>();
+        campos.add(txtNome);
+        campos.add(txtCpf);
+        campos.add(txtMatricula);
+        campos.add(txtDataAdmissao);
     }
-
-    @Override
-    public void initButtons() {
-        btnSave.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                try {
-                    saveProfessor();
-                } catch (PessoaException ex) {
-                    showMessage("Erro", ex.getMessage());
-                }
-            }
-        });
-        btnCancel.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                cancelar();
-            }
-        });
-    }
-
-    public void cancelar(){
-        this.dispose();
+   
+    public void adicionarAcaoAoBotaoSalvar(ActionListener acao){
+        btnSave.addActionListener(acao);
     }
     
-    public void saveProfessor() throws PessoaException{
-        Professor novoProfessor;
-        String nome = txtNome.getText();
-        String cpf = txtCpf.getText();
-        String matricula = txtMatricula.getText();
-        String dataAdmissao = txtDataAdmissao.getText();
-        if(nome.isBlank()){
-            throw new PessoaException("O nome do professor não pode ser nulo");
+    public void adicionarAcaoAoBotaoCancelar(ActionListener acao){
+        btnCancel.addActionListener(acao);
+    }
+    
+    public String getNomeProfessor(){
+        return txtNome.getText();
+    }
+    
+    public String getCpfProfessor(){
+        return txtCpf.getText();
+    }
+    
+    public String getMatriculaProfessor(){
+        return txtMatricula.getText();
+    }
+    
+    public String getDataAdmissaoProfessor(){
+        return txtDataAdmissao.getText();
+    }
+    
+    public void exibirTela(){
+        this.setLocationRelativeTo(null);
+        this.setVisible(true);
+    }
+    
+    public void limparTela(){
+        for(JTextField c : this.campos){
+            c.setText(null);
         }
-        novoProfessor = new Professor(matricula, dataAdmissao, nome, cpf);
-        professoresBD.add(novoProfessor);
     }
     
     @Override

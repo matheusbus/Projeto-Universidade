@@ -19,7 +19,6 @@ public abstract class DefaultView extends javax.swing.JFrame {
         initComponents();
     }
     
-    public abstract void initButtons();
     public abstract void initLayout();
     
     public void showMessage(String title, String msg){

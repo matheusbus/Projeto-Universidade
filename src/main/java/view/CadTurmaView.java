@@ -10,15 +10,9 @@ import dao.TurmaDAO;
 import excecao.CursoException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
 import model.Curso;
 import model.Professor;
 import model.Turma;
-import repositorio.CursoRepositorio;
-import repositorio.PessoaRepositorio;
-import repositorio.TurmaRepositorio;
 
 
 /**
@@ -27,16 +21,7 @@ import repositorio.TurmaRepositorio;
  */
 public final class CadTurmaView extends DefaultView {
 
-    private Map<Integer, Turma> turmasBD;
-    private List<Curso> cursosBD;
-    private Set<Professor> professoresBD;
-    private TurmaRepositorio repositorioTurma;
-    private CursoRepositorio repositorioCurso;
-    private PessoaRepositorio repositorioProfessores;
-    
-    /**
-     * Creates new form CadAlunoView
-     */
+   
     public CadTurmaView() {
         initComponents();
         initButtons();
