@@ -5,7 +5,6 @@
 package view;
 
 import com.formdev.flatlaf.intellijthemes.FlatHiberbeeDarkIJTheme;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 /**
@@ -69,6 +68,7 @@ public final class MainView extends DefaultView {
         miCadCurso = new javax.swing.JMenuItem();
         miCadTurma = new javax.swing.JMenuItem();
         muConsulta = new javax.swing.JMenu();
+        miGerencTurmas = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Universidade Informatizada");
@@ -100,7 +100,11 @@ public final class MainView extends DefaultView {
 
         mbPrincipal.add(muCadastro);
 
-        muConsulta.setText("Consultas");
+        muConsulta.setText("Gerenciar");
+
+        miGerencTurmas.setText("Turmas");
+        muConsulta.add(miGerencTurmas);
+
         mbPrincipal.add(muConsulta);
 
         setJMenuBar(mbPrincipal);
@@ -127,6 +131,7 @@ public final class MainView extends DefaultView {
     private javax.swing.JMenuItem miCadCurso;
     private javax.swing.JMenuItem miCadProfessor;
     private javax.swing.JMenuItem miCadTurma;
+    private javax.swing.JMenuItem miGerencTurmas;
     private javax.swing.JMenu muCadastro;
     private javax.swing.JMenu muConsulta;
     private javax.swing.JPanel pnlBackground;

@@ -47,5 +47,15 @@ public class CursoDAO implements CursoRepositorio{
     public List<Curso> getCursos() {
         return cursos;
     }
+
+    @Override
+    public Curso getCursoByNome(String nome) {
+        for(Curso c : cursos){
+            if(c.getNome().equals(nome)){
+                return c;
+            }
+        }
+        return null;
+    }
         
 }

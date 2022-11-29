@@ -16,6 +16,8 @@ public interface CursoRepositorio {
     public boolean addCurso(Curso c);
     public boolean removeCurso(int codigo);
     public Curso getCursoById(int codigo);
+    public Curso getCursoByNome(String nome);
     public List<Curso> getCursos();
+    
     
 }

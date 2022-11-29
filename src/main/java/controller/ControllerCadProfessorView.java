@@ -16,7 +16,7 @@ import view.CadProfessorView;
  *
  * @author Matheus
  */
-public final class ControllerCadProfessorView {
+public final class ControllerCadProfessorView extends ControllerDefault{
     
     private CadProfessorView cadProfessorView;
     private Professor modeloProfessor;
@@ -68,6 +68,7 @@ public final class ControllerCadProfessorView {
         cadProfessorView.dispose();
     }
     
+    @Override
     public void exibirTela(){
         cadProfessorView.exibirTela();
     }

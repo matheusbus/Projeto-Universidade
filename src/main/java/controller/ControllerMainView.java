@@ -6,15 +6,13 @@ package controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import view.CadCursoView;
-import view.CadTurmaView;
 import view.MainView;
 
 /**
  *
  * @author Matheus
  */
-public final class ControllerMainView {
+public final class ControllerMainView extends ControllerDefault{
     
     private MainView telaPrincipal;
 
@@ -23,6 +21,7 @@ public final class ControllerMainView {
         inicializarBotoes();
     }
     
+    @Override
     public void exibirTela(){
         telaPrincipal.exibirTela();
     }
@@ -65,13 +64,13 @@ public final class ControllerMainView {
     }
     
     public void openCadCursoView(){
-        CadCursoView cadCurso = new CadCursoView();
-        cadCurso.setVisible(true);
+        ControllerCadCursoView controllerCadCursoView = new ControllerCadCursoView();
+        controllerCadCursoView.exibirTela();
     }
     
     public void openCadTurmaView(){
-        CadTurmaView cadTurma = new CadTurmaView();
-        cadTurma.setVisible(true);
+        ControllerCadTurmaView controllerCadTurmaView = new ControllerCadTurmaView();
+        controllerCadTurmaView.exibirTela();
     }
     
 }

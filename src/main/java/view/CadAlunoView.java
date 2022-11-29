@@ -4,9 +4,6 @@
  */
 package view;
 
-import dao.PessoaDAO;
-import excecao.PessoaException;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 /**
@@ -53,12 +50,7 @@ public final class CadAlunoView extends DefaultView {
     public String getMatriculaAluno(){
         return txtMatricula.getText();
     }
- 
-    public void exibirTela(){
-        this.setLocationRelativeTo(null);
-        this.setVisible(true);
-    }
-    
+  
     public void limparTela(){
         this.txtNome.setText(null);
         this.txtCpf.setText(null);

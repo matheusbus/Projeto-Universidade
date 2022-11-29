@@ -100,5 +100,17 @@ public class PessoaDAO implements PessoaRepositorio{
             }
         }
     }
+
+    @Override
+    public Professor getProfessorByNome(String nome) {
+        for(Pessoa p : pessoas){
+            if(p instanceof Professor prof){
+                if(prof.getNome().equals(nome)){
+                    return prof;
+                }
+            }
+        }
+        return null;
+    }
     
 }

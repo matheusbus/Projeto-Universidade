@@ -35,8 +35,15 @@
         </Menu>
         <Menu class="javax.swing.JMenu" name="muConsulta">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Consultas"/>
+            <Property name="text" type="java.lang.String" value="Gerenciar"/>
           </Properties>
+          <SubComponents>
+            <MenuItem class="javax.swing.JMenuItem" name="miGerencTurmas">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Turmas"/>
+              </Properties>
+            </MenuItem>
+          </SubComponents>
         </Menu>
       </SubComponents>
     </Menu>

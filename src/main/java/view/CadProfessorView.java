@@ -4,13 +4,10 @@
  */
 package view;
 
-import dao.PessoaDAO;
-import java.awt.Component;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JTextField;
-import repositorio.PessoaRepositorio;
 
 
 /**
@@ -57,12 +54,7 @@ public final class CadProfessorView extends DefaultView {
     public String getDataAdmissaoProfessor(){
         return txtDataAdmissao.getText();
     }
-    
-    public void exibirTela(){
-        this.setLocationRelativeTo(null);
-        this.setVisible(true);
-    }
-    
+
     public void limparTela(){
         for(JTextField c : this.campos){
             c.setText(null);

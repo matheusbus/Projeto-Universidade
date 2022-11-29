@@ -16,7 +16,7 @@ import view.CadAlunoView;
  *
  * @author Matheus
  */
-public class ControllerCadAlunoView {
+public final class ControllerCadAlunoView extends ControllerDefault{
     
     private CadAlunoView telaCadAlunoView;
     private Aluno modeloAluno;
@@ -36,6 +36,12 @@ public class ControllerCadAlunoView {
                 } catch (PessoaException ex) {
                     telaCadAlunoView.showMessage("Erro", ex.getMessage());
                 }
+            }
+        });
+        telaCadAlunoView.adicionarAcaoAoBotaoCancelar(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                acaoCancelar();
             }
         });
     }
@@ -61,6 +67,11 @@ public class ControllerCadAlunoView {
         System.out.println(repositorioDeAlunos.getAlunos());
     }
     
+    public void acaoCancelar(){
+        telaCadAlunoView.dispose();
+    }
+    
+    @Override
     public void exibirTela(){
         telaCadAlunoView.exibirTela();
     }

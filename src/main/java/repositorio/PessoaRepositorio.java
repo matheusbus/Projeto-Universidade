@@ -20,6 +20,7 @@ public interface PessoaRepositorio {
     public Pessoa getPessoaByCpf(String cpf);
     public Aluno getAlunoByMatricula(String matricula);
     public Professor getProfessorByMatricula(String matricula);
+    public Professor getProfessorByNome(String nome);
     public Set<Aluno> getAlunos();
     public Set<Professor> getProfessores();
     public void imprimeAlunos();

@@ -4,8 +4,6 @@
  */
 package view;
 
-import excecao.CursoException;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import model.Curso;
 
@@ -41,13 +39,13 @@ public final class CadCursoView extends DefaultView {
         this.txtCodigo.setText(Integer.toString(Curso.getGeradorCodigo()+1));
     }    
     
-    public void exibirTela(){
-        this.setLocationRelativeTo(null);
-        this.setVisible(true);
-    }
-    
     public String getNomeCurso(){
         return this.txtNome.getText();
+    }
+    
+    public void limparCampos(){
+        this.txtNome.setText(null);
+        this.txtCodigo.setText(Integer.toString(Curso.getGeradorCodigo()+1));
     }
     
     /**

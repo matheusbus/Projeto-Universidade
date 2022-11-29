@@ -25,6 +25,11 @@ public abstract class DefaultView extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(null, msg, title, HEIGHT);
     }
     
+    public void exibirTela(){
+        this.setLocationRelativeTo(null);
+        this.setVisible(true);
+    }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.

@@ -4,12 +4,9 @@
  */
 package view;
 
-import dao.CursoDAO;
-import dao.PessoaDAO;
-import dao.TurmaDAO;
-import excecao.CursoException;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
+import java.util.Set;
 import model.Curso;
 import model.Professor;
 import model.Turma;
@@ -24,68 +21,58 @@ public final class CadTurmaView extends DefaultView {
    
     public CadTurmaView() {
         initComponents();
-        initButtons();
         initLayout();
-        initFields();
     }
 
-    @Override
-    public void initButtons() {
-        btnSave.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                try {
-                    saveTurma();
-                } catch (CursoException ex) {
-                    showMessage("Erro", ex.getMessage());
-                }
-            }
-        });
-        btnCancel.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                cancelar();
-            }
-        });
-    }
-
-    public void cancelar(){
-        this.dispose();
+    public void adicionarAcaoAoBotaoCadastrar(ActionListener acao){
+        btnSave.addActionListener(acao);
     }
     
-    public void saveTurma() throws CursoException{
-
+    public void adicionarAcaoAoBotaoCancelar(ActionListener acao){
+        btnCancel.addActionListener(acao);
     }
-    
+
     @Override
     public void initLayout() {
         this.setContentPane(pnlBackground);
         this.setSize(600, 250);
-        this.setLocationRelativeTo(null);
         this.txtCodigo.setText(Integer.toString(Turma.getGeradorCodigo()+1));
     }    
     
-    public void initFields(){
-        repositorioTurma = new TurmaDAO();
-        repositorioCurso = new CursoDAO();
-        repositorioProfessores = new PessoaDAO();
-        turmasBD = repositorioTurma.getTurmas();
-        cursosBD = repositorioCurso.getCursos();
-        professoresBD = repositorioProfessores.getProfessores();
-        createCursos();
-        createProfessores();
-    }
-    
-    public void createCursos(){
-        for(Curso c : cursosBD){
-            cbCurso.addItem(c);
+    public void createCursos(List<Curso> cursos){
+        for(Curso c : cursos){
+            cbCurso.addItem(c.getNome());
         }
     }
     
-    public void createProfessores(){
-        for(Professor p : professoresBD){
-            cbProfessor.addItem(p);
+    public void createProfessores(Set<Professor> professores){
+        for(Professor p : professores){
+            cbProfessor.addItem(p.getNome());
         }
+    }
+    
+    public String getCursoSelecionado(){
+        return (String) cbCurso.getSelectedItem();
+    }
+    
+    public String getProfessorSelecionado(){
+        return (String) cbProfessor.getSelectedItem();
+    }
+    
+    public String getQuantidadeVagas(){
+        return (String) cbVagas.getSelectedItem();
+    }
+    
+    public String getNomeDisciplina(){
+        return txtNomeDisciplina.getText();
+    }
+    
+    public void limparCampos(){
+        this.cbCurso.setSelectedIndex(0);
+        this.cbProfessor.setSelectedIndex(0);
+        this.cbVagas.setSelectedIndex(0);
+        this.txtCodigo.setText(Integer.toString(Turma.getGeradorCodigo()+1));
+        this.txtNomeDisciplina.setText(null);
     }
     
     /**
@@ -230,8 +217,8 @@ public final class CadTurmaView extends DefaultView {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancel;
     private javax.swing.JButton btnSave;
-    private javax.swing.JComboBox<Curso> cbCurso;
-    private javax.swing.JComboBox<Professor> cbProfessor;
+    private javax.swing.JComboBox<String> cbCurso;
+    private javax.swing.JComboBox<String> cbProfessor;
     private javax.swing.JComboBox<String> cbVagas;
     private javax.swing.JLabel lblCodigo;
     private javax.swing.JLabel lblCurso;

@@ -22,15 +22,37 @@ public class Turma {
     private int vagas;
     private List<Aluno> alunos;
 
-    public Turma(Curso curso, Professor professor, String nomeDisciplina, int vagas) {
+    public Turma(Curso curso, Professor professor, String nomeDisciplina, int vagas) throws TurmaException {
         this.codigo = geradorCodigo++;
         this.curso = curso;
         this.professor = professor;
         this.nomeDisciplina = nomeDisciplina;
         this.vagas = vagas;
         this.alunos = new ArrayList<>();
+        
+        if(this.vagas <= 0){
+            throw new TurmaException("A quantidade de vagas deve ser maior que zero.");
+        }
+        if(this.professor == null){
+            throw new TurmaException("Deve ser informado um professor.");
+        }
+        if(this.curso == null){
+            throw new TurmaException("Deve ser informado um curso.");
+        }
+        if(this.nomeDisciplina.isBlank()){
+            throw new TurmaException("O nome da disciplina não pode ser nulo.");
+        }
     }
 
+    public void matricularAluno(Aluno aluno) throws TurmaException{
+        if(this.getVagas() > 0){
+            alunos.add(aluno);
+            this.vagas = getVagas() -1;
+        } else {
+            throw new TurmaException("Não há vagas disponíveis na disciplina.");
+        }
+    }
+    
     public static int getGeradorCodigo() {
         return geradorCodigo;
     }
@@ -59,16 +81,15 @@ public class Turma {
         return alunos;
     }
     
-    public boolean addAluno(Aluno a) throws TurmaException{
-        if(vagas > 0){
-            vagas -= vagas - 1;
-            return this.alunos.add(a);
-        } else {
-            throw new TurmaException("Não há vagas para a turma.");
-        }
-    }
     
     public int getQuantidadeAlunosMatriculados(){
         return this.alunos.size();
     }
+
+    @Override
+    public String toString() {
+        return "Turma{" + "vagas=" + vagas + ", alunos=" + alunos + '}';
+    }
+    
+    
 }

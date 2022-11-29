@@ -8,7 +8,7 @@ package model;
  *
  * @author Matheus
  */
-public class Aluno extends Pessoa{
+public class Aluno extends Pessoa implements Comparable<Aluno>{
     
     private final String matricula;
     private final int idade;
@@ -29,9 +29,12 @@ public class Aluno extends Pessoa{
 
     @Override
     public String toString() {
-        return "Aluno{" + "matricula=" + matricula + ", idade=" + idade + '}';
+        return "Aluno: " + getNome() + " - Matricula: " + matricula + " - Idade: " + idade;
     }
-    
-    
-    
+
+    @Override
+    public int compareTo(Aluno o) {
+        return this.getMatricula().compareTo(o.getMatricula());
+    }
+   
 }

@@ -8,8 +8,6 @@ import dao.CursoDAO;
 import excecao.CursoException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import model.Curso;
 import repositorio.CursoRepositorio;
 import view.CadCursoView;
@@ -18,7 +16,7 @@ import view.CadCursoView;
  *
  * @author Matheus
  */
-public final class ControllerCadCursoView {
+public final class ControllerCadCursoView extends ControllerDefault{
     
     private CadCursoView cadCursoView;
     private Curso modeloCurso;
@@ -60,13 +58,14 @@ public final class ControllerCadCursoView {
         modeloCurso = new Curso(nome);
         CursoRepositorio cursoRepositorio = new CursoDAO();
         cursoRepositorio.addCurso(modeloCurso);
+        cadCursoView.showMessage("Êxito", "Curso cadastrado com sucesso.");
+        cadCursoView.limparCampos();
     }
 
     
+    @Override
     public void exibirTela(){
         cadCursoView.exibirTela();
     }
-    
-    
     
 }
